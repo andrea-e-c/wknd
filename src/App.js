@@ -54,7 +54,7 @@ export default function App() {
         <Link to="/signup"><h2>Sign Up</h2></Link>
       </div>
       <Switch>
-        <Route path="/" component={Hello} />
+        <Route exact path="/" component={Hello} />
         <Route path="/home" component={Home} />
         <Route path = "/login" component={Login} />
         <Route path = "/signup" component={Signup} />
