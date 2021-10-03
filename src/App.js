@@ -14,9 +14,9 @@ export default function App() {
       </header>
     <HashRouter>
       <div className="menu">
-        <Link to="/home"><h2>Home</h2></Link>
-        <Link to="/login"><h2>Log In</h2></Link>
-        <Link to="/signup"><h2>Sign Up</h2></Link>
+        <div className="menuItem"><Link to="/home"><h2>Home</h2></Link></div>
+        <div className="menuItem"><Link to="/login"><h2>Log In</h2></Link></div>
+        <div className="menuItem"><Link to="/signup"><h2>Sign Up</h2></Link></div>
       </div>
       <Switch>
         <Route exact path="/" component={Home} />
