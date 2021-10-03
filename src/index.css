@@ -14,8 +14,12 @@ code {
 
 @media (prefers-color-scheme: dark) {
   body { background: #333; color: white; }
+  .createForm {background-color: rgb(22, 22, 22); padding: 10px}
 }
 
 @media (prefers-color-scheme: light) {
   body { background: #ddd; color: black; }
+  .createForm { background-color: white; padding: 10px
+  }
 }
+
