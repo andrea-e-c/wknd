@@ -4,6 +4,8 @@ const {
   Menu,
   BrowserWindow,
   Notification,
+  Tray,
+  nativeImage,
   ipcMain,
   nativeTheme,
 } = require("electron");
@@ -93,6 +95,8 @@ const showNotification = () => {
   new Notification({ title: NOTIFICATION_TITLE, body: NOTIFICATION_BODY }).show()
 }
 
+let tray 
+
 app
   .whenReady()
   .then(() => {
@@ -109,41 +113,24 @@ app
       }
     });
   })
-  .then(showNotification);
+  .then(showNotification)
+  .then(() => {
+    const icon = nativeImage.createFromPath('path/to/asset.png')
+    tray = new Tray(icon)
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' }
+    ])
+    
+    tray.setContextMenu(contextMenu)
+    tray.setToolTip('This is my application')
+    tray.setTitle('This is my title')
+  });
 
-// app.whenReady().then(() => {
-//   createWindow()
 
-//   app.on('activate', () => {
-//     if (BrowserWindow.getAllWindows().length === 0) {
-//       createWindow()
-//     }
-//   })
-// })
 
-//let tray
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-// app.whenReady().then(createWindow).then(()=>{
-//     const icon = nativeImage.createFromPath('/favicon.ico')
-//     tray = new Tray(icon)
-
-//   const contextMenu = Menu.buildFromTemplate([
-//     { label: 'Item1', type: 'radio' },
-//     { label: 'Item2', type: 'radio' },
-//     { label: 'Item3', type: 'radio', checked: true },
-//     { label: 'Item4', type: 'radio' }
-//   ])
-
-//   tray.setToolTip('This is my application.')
-//   tray.setContextMenu(contextMenu)
-// });
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
