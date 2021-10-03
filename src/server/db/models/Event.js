@@ -8,17 +8,17 @@ const Event = db.define('event', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  date: {
-    type: Sequelize.DATEONLY,
-    allowNull: false
-  },
-  time: {
-    type: Sequelize.DATE,
-    defaultValue: false
-  },
+  // date: {
+  //   type: Sequelize.DATEONLY,
+  //   allowNull: false
+  // },
+  // time: {
+  //   type: Sequelize.DATE,
+  //   defaultValue: false
+  // },
   type: {
     type: Sequelize.ENUM('public', 'private'),
-    defaultValue: "https://www.russorizio.com/wp-content/uploads/2016/07/ef3-placeholder-image.jpg"
+    defaultValue: "private"
   },
   description: {
       type: Sequelize.TEXT,

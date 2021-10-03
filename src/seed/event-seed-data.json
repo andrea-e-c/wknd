@@ -1,22 +1,16 @@
 [
     {
         "title": "Magic Show",
-        "date": "08/30/2022",
-        "time": "9:00pm",
         "type": "public",
         "description": "Enjoy a magical evening of wonder and entertainment!"
     },
     {
         "title": "Andrea's Birthday Bash",
-        "date": "09/15/2022",
-        "time": "7:30pm",
         "type": "private",
         "description": "Andrea is celebrating another year of not dying!"
     },
     {
         "title": "Ice Skating with a Shark",
-        "date": "12/25/2022",
-        "time": "9:00pm",
         "type": "public",
         "description": "Does it sound like a bad idea? That's because it is a bad idea."
     }
