@@ -1,23 +1,17 @@
 const path = require("path");
-const {
-  app,
-  Menu,
-  BrowserWindow,
-  Notification,
-  Tray,
-  nativeImage,
-  ipcMain,
-  nativeTheme,
-} = require("electron");
+const { app, Menu, BrowserWindow, Notification, Tray, nativeImage, ipcMain, nativeTheme,} = require("electron");
 const isDev = require("electron-is-dev");
 const fs = require("fs");
 const https = require("https");
+
+// FOR PROGRESS BAR
+let progressInterval
 
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1200,
-    height: 600,
+    height: 700,
     webPreferences: {
       // Integrate other nodes
       nodeIntegration: true,
@@ -31,7 +25,26 @@ function createWindow() {
   // Load primary html file
   win.loadFile("index.html");
 
-  // ******* TESTING DRAG & DROP FUNCTIONALITY *******
+// ***** RUN PROGRESS BAR *****
+  const INCREMENT = 0.03
+  const INTERVAL_DELAY = 100
+
+  let c = 0
+  progressInterval = setInterval(() => {
+    // update progress bar to next value
+    // values between 0 and 1 will show progress, >1 will show indeterminate or stick at 100%
+    win.setProgressBar(c)
+
+    // increment or reset progress bar
+    if (c < 2) {
+      c += INCREMENT
+    } else {
+      c = (-INCREMENT * 5) // reset to a bit less than 0 to show reset state
+    }
+  }, INTERVAL_DELAY)
+
+
+  // ******* CREATE DRAG & DROP ICON AND ITEMS *******
   const iconName = path.join(__dirname, "iconForDragAndDrop.png");
   const icon = fs.createWriteStream(iconName);
 
@@ -116,11 +129,11 @@ let tray;
 app
   .whenReady()
   .then(() => {
-    // IF OPERATING SYSTEM IS LINUX...
-    if (process.platform === "darwin") {
-      // MAKE DOC MENU
-      app.dock.setMenu(dockMenu);
-    }
+   // IF OPERATING SYSTEM IS LINUX...
+   if (process.platform === "darwin") {
+     // MAKE DOC MENU
+     app.dock.setMenu(dockMenu);
+   }
   })
   .then(() => {
     createWindow();
@@ -148,6 +161,11 @@ app
     tray.setToolTip("This is my application");
     tray.setTitle("WKND");
   });
+
+// before the app is terminated, clear both timers
+app.on('before-quit', () => {
+  clearInterval(progressInterval)
+})
 
 // ******* QUIT THE APP WHEN THE WINDOWS CLOSE *******
 app.on("window-all-closed", () => {
