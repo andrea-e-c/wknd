@@ -32,17 +32,3 @@ export default function App() {
   );
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src='/wkndLOGO.jpg' className="App-logo" alt="logo" />
-//       </header>
-//       <body>
-//         <p>This is a test</p>
-//       </body>
-//     </div>
-//   );
-// }
-
-// export default App;

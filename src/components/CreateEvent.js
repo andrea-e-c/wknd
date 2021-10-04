@@ -23,6 +23,10 @@ export default class CreateEvent extends React.Component{
     }
 }
 
+
+
+// REFERENCE FORM FORMATTING
+
 // <form id='todo-form' onSubmit={handleSubmit}>
 //        <label htmlFor='taskName'>Task Name:</label>
 //        <input name='taskName' value={taskName} onChange={handleChange}/>
