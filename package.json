@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "^4.17.1",
     "pg": "^8.7.1",
     "react": "^17.0.2",
@@ -18,13 +19,15 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "electron-forge start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "seed": "node src/seed.js"
+    "seed": "node src/seed.js",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -45,9 +48,41 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "concurrently": "^6.2.2",
     "electron": "^15.0.0",
     "electron-is-dev": "^2.0.0",
     "wait-on": "^6.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_wknd"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
