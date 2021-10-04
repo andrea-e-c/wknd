@@ -1,3 +1,18 @@
 .eventDiv {
     background-color: #706c61;
+    display: block;
+    width: 50%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 3px 3px 10px rgb(131, 130, 130);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 10px;
+    padding: 10px;
 }
