@@ -1,11 +1,27 @@
 const path = require("path");
+
 const { app, Menu, BrowserWindow, Notification, Tray, nativeImage, ipcMain, nativeTheme,} = require("electron");
 const isDev = require("electron-is-dev");
 const fs = require("fs");
 const https = require("https");
 
+
 // FOR PROGRESS BAR
 let progressInterval
+
+// ***** REGISTER APPLICATION TO HANDLE ALL "ELECTRON-FIDDLE" PROTOCOLS *****
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('electron-fiddle', process.execPath, [path.resolve(process.argv[1])])
+  }
+} else {
+  app.setAsDefaultProtocolClient('electron-fiddle')
+}
+
+app.on('open-url', (event, url) => {
+  dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
+})
+
 
 function createWindow() {
   // Create the browser window.
@@ -18,8 +34,8 @@ function createWindow() {
       // Enable remote modules
       enableRemoteModule: true,
       // Allow javascript
-      preload: path.join(__dirname, "preload.js"),
-    },
+      preload: path.join(__dirname, "preload.js")
+    }
   });
 
   // Load primary html file
@@ -162,10 +178,12 @@ app
     tray.setTitle("WKND");
   });
 
+
 // before the app is terminated, clear both timers
 app.on('before-quit', () => {
   clearInterval(progressInterval)
 })
+
 
 // ******* QUIT THE APP WHEN THE WINDOWS CLOSE *******
 app.on("window-all-closed", () => {
